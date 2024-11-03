@@ -140,6 +140,9 @@ class Castle:
             self.cannon.draw()
         if self.team == 0:
             pygame.draw.rect(screen, (0, 0, 0), ((0, 200), (self.health, 10)))
+        else:
+            pygame.draw.rect(screen, (0, 0, 0), ((WIDTH - self.health, 200), (self.health, 10)))
+            
         pygame.draw.rect(screen, (0, 0, 0), self.rect)
 
 # Cannon class
@@ -272,9 +275,19 @@ while running:
             if enemy.rect.colliderect(troop):
                 to_delete_troops.add(troop)
                 to_delete_enemies.add(enemy)
-
     troops = troops.difference(to_delete_troops)
     enemy_ai.troops = enemy_ai.troops.difference(to_delete_enemies)
+
+    to_delete_troops = set()
+    for troop in troops:
+        if troop.x > WIDTH - castle_width:
+            to_delete_troops.add(troop)
+            pygame.mixer.music.load('explode.mp3')
+            pygame.mixer.music.play()
+            enemy_castle.health -= troop.damage*20
+
+    troops = troops.difference(to_delete_troops)
+
 
 
     # pygame.QUIT event means the user clicked X to close your window
