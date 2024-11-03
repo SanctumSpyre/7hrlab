@@ -20,6 +20,9 @@ class Player():
 
     def lose_money(self, spendings):
         self.money -= spendings
+
+    def display_money(self):
+        
         
 class Troops():
     def __init__(self, size, speed, health, dps, cost, team=0):
