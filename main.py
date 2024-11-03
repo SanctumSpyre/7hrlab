@@ -177,8 +177,8 @@ class Cannon:
 
     def fire(self, dst):
         if self.ready:
-            pygame.music.mixer.load('cannon.mp3')
-            pygame.music.mixer.play()
+            pygame.mixer.music.load('cannon.mp3')
+            pygame.mixer.music.play()
             x, y = dst[0], dst[1]
             vector = np.array([x - self.x0, y - self.y0])
             magnitude = np.linalg.norm(vector)
