@@ -260,6 +260,8 @@ while running:
         if enemy.x <= castle_width/2:
             to_delete_enemies.add(enemy)
             player_castle.health -= enemy.damage
+            if player_castle.health <= 0:
+                running = False
         for troop in troops:
             if enemy.rect.colliderect(troop):
                 to_delete_troops.add(troop)
