@@ -284,9 +284,10 @@ while running:
     player0.display_money()
     soldier_button.draw()
     cannon_upgrade_button.draw()
-
     player_castle.draw()
+    
     enemy_castle.draw()
+    enemy_ai.draw()
 
     for troop in troops:
         troop.update()
