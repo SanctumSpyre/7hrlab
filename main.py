@@ -198,7 +198,7 @@ class Cannon:
     
     def upgrade(self):
         self.level += 1
-        self.speed = 10 + self.level
+        self.speed = 10 + (self.level*5)
         self.reload = 120 // (self.level*0.5 + 0.5)
         self.damage = 2 * self.level
 
