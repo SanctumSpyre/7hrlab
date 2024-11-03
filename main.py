@@ -251,6 +251,8 @@ while running:
         for enemy in enemy_ai.troops:
             to_delete = set()
             if ball.rect.colliderect(enemy.rect):
+                pygame.mixer.music.load('hit.mp3')
+                pygame.mixer.music.play()
                 to_delete.add(enemy)
             player0.gain_money(2*len(to_delete))
             
