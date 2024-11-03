@@ -130,10 +130,13 @@ class Castle:
         if team:
             self.x = 1920 - castle_width/2
         else:
-            self.x = -castle_width/2
+            self.x = 0
         self.y = 1080 - castle_height
         
         self.rect = pygame.Rect((self.x, self.y), (castle_width, castle_height))
+        self.rect1 = pygame.Rect((self.x, self.y - 50), (50, 50))
+        self.rect2 = pygame.Rect((self.x + 75, self.y - 50), (50, 50))
+        self.rect3 = pygame.Rect((self.x + 150, self.y - 50), (50, 50))
 
     def draw(self):
         if self.cannon:
@@ -141,6 +144,9 @@ class Castle:
         if self.team == 0:
             pygame.draw.rect(screen, (0, 0, 0), ((0, 200), (self.health, 10)))
         pygame.draw.rect(screen, (0, 0, 0), self.rect)
+        pygame.draw.rect(screen, (0, 0, 0), self.rect1)
+        pygame.draw.rect(screen, (0, 0, 0), self.rect2)
+        pygame.draw.rect(screen, (0, 0, 0), self.rect3)
 
 # Cannon class
 class Cannon:
