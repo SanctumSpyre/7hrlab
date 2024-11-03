@@ -225,6 +225,10 @@ class Enemy:
         if self.cycles % 1200 == 0:
             if self.soldier_reset > 30:to_delete_enemies.add(enemy)
 
+        for troop in self.troops:
+            troop.update()
+            troop.draw()
+
 
 
 
