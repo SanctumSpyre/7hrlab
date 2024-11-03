@@ -114,7 +114,7 @@ class Troop():
         pygame.draw.rect(screen, (0, 0, 0), ((self.x,self.y), self.size))
 
 
-castle_health = 1000
+castle_health = 500
 castle_width = 200
 castle_height = 600
 class Castle:
@@ -133,13 +133,15 @@ class Castle:
     def draw(self):
         if self.cannon:
             self.cannon.draw()
+        if self.team == 0:
+            pygame.draw.rect(screen, (0, 0, 0), ((0, 200), (castle_health, 10)))
         pygame.draw.rect(screen, (0, 0, 0), self.rect)
 
 # Cannon class
 class Cannon:
     def __init__(self):
         self.level = 1
-        self.speed = 10 * self.level
+        self.speed = 10 + (self.level*2)
         self.reload = 120 // (self.level*0.5 + 0.5)
         self.damage = 2 * self.level
         self.x0, self.y0 = (50, 1035 - castle_height)
