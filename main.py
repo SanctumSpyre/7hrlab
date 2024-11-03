@@ -16,14 +16,17 @@ MOUSE_CLICKED = pygame.USEREVENT + 1
 mouse_clicked = pygame.event.Event(MOUSE_CLICKED)
 SOLDIER_CLICKED = pygame.USEREVENT + 2
 soldier_clicked = pygame.event.Event(SOLDIER_CLICKED)
+CANNON_UPGRADE_CLICKED = pygame.USEREVENT + 3
+cannon_upgrade_clicked = pygame.event.Event(CANNON_UPGRADE_CLICKED)
 # Object class 
 class Button():
-    def __init__(self, position, cd, cost):
+    def __init__(self, position, cd, cost, ID):
         self.position = position
         self.cd = cd
         self.cost = cost
         self.clicked = False
-        self.rect = pygame.Rect(self.position,(50,50)) 
+        self.rect = pygame.Rect(self.position,(50,50))
+        self.ID = ID
 
     def draw(self):
         # click handling
@@ -33,8 +36,12 @@ class Button():
             if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
                 self.clicked = True
         if pygame.mouse.get_pressed()[0] == 0 and self.clicked == True:
-            pygame.event.post(soldier_clicked)
+            if self.ID == 'soldier':
+                pygame.event.post(soldier_clicked)
+            elif self.ID == 'cannon_upgrade':
+                pygame.event.post(cannon_upgrade_clicked)
             self.clicked = False
+        
 
             
         pygame.draw.rect(screen, (0, 0, 0), self.rect)
@@ -112,9 +119,9 @@ class Castle:
 # Cannon class
 class Cannon:
     def __init__(self, level=1):
-        self.speed = 10 * level
-        self.reload = 120 // (level*0.5 + 0.5)
-        self.damage = 2 * level
+        self.speed = 10
+        self.reload = 120 // (0.5 + 0.5)
+        self.damage = 2
         self.x0, self.y0 = (50, 1035 - castle_height)
         self.cannonballs = set()
         self.ready = False
@@ -122,8 +129,7 @@ class Cannon:
         self.x, self.y = 0, 1050 - castle_height
         self.rect = pygame.Rect((self.x, self.y), (50, 30))
         self.cdbar_max_x = 50
-        self.cdbar_y = 5
-
+        self.cdbar_y = 5self.level = level
     def draw(self):
         if not self.ready:
             p = self.cycles / self.reload 
@@ -135,7 +141,6 @@ class Cannon:
         if self.cycles >= self.reload:
             self.ready = True
             self.cycles = 0
-
         to_remove = set()
         for ball in self.cannonballs:
             if ball.center[0] < 0 or ball.center[0] > WIDTH or ball.center[1] < 0 or ball.center[1] > HEIGHT:
@@ -176,7 +181,8 @@ class Cannonball:
 
 # game loop
 troops = []
-soldier_button = Button((0,0),1,1)
+soldier_button = Button((0,0),1,1,'soldier')
+cannon_upgrade_button = Button((50,0),1,1,'cannon_upgrade')
 tick_count = 0
 player0 = Player(0)
 cannon = Cannon()
@@ -196,6 +202,14 @@ while running:
             if player0.money >= 10:
                 troops.append(Troop((16,16),1/2,1,1,10,0))
                 player0.lose_money(10)
+        elif event.type == CANNON_UPGRADE_CLICKED:
+            if player0.money >= 30:
+                cannon.speed *= 2
+                cannon.reload = cannon.reload(.9)
+                cannon.damage += 2
+                player0.lose_money(30)
+
+
         elif event.type == MOUSE_CLICKED:
             if pygame.mouse.get_pos()[1] >= 100:
                 cannon.fire(pygame.mouse.get_pos())
@@ -217,6 +231,8 @@ while running:
         player0.gain_money(1)
     player0.display_money()
     soldier_button.draw()
+    cannon_upgrade_button.draw()
+
     player_castle.draw()
     enemy_castle.draw()
     for troop in troops:
