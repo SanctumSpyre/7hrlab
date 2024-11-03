@@ -241,9 +241,11 @@ while running:
     # poll for events
     for ball in cannon.cannonballs:
         for enemy in enemy_ai.troops:
+            to_delete = set()
             if ball.rect.colliderect(enemy.rect):
-                print('hello')
-                enemy_ai.troops.remove(enemy)
+                to_delete.add(enemy)
+            
+            enemy_ai.troops = enemy_ai.troops.difference(to_delete)
 
     # pygame.QUIT event means the user clicked X to close your window
     keys = pygame.key.get_pressed()
