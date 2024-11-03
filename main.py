@@ -18,6 +18,8 @@ SOLDIER_CLICKED = pygame.USEREVENT + 2
 soldier_clicked = pygame.event.Event(SOLDIER_CLICKED)
 CANNON_UPGRADE_CLICKED = pygame.USEREVENT + 3
 cannon_upgrade_clicked = pygame.event.Event(CANNON_UPGRADE_CLICKED)
+
+
 # Object class 
 class Button():
     def __init__(self, position, cd, cost, ID):
@@ -99,6 +101,8 @@ class Troop():
         else:
             self.x = 1920 - castle_width + 8
         self.y = 980
+
+        self.damage = 10
 
         self.rect = pygame.Rect((self.x, self.y), self.size)
 
@@ -250,6 +254,10 @@ while running:
             player0.gain_money(2*len(to_delete))
             
             enemy_ai.troops = enemy_ai.troops.difference(to_delete)
+
+    for enemy in enemy_ai.troops:
+        if enemy.x <= castle_width:
+            
 
     # pygame.QUIT event means the user clicked X to close your window
     keys = pygame.key.get_pressed()
