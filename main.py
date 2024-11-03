@@ -291,6 +291,8 @@ while running:
             pygame.mixer.music.load('explode.mp3')
             pygame.mixer.music.play()
             enemy_castle.health -= troop.damage*20
+            if enemy_castle.health <= 0:
+                running = False
 
     troops = troops.difference(to_delete_troops)
 
