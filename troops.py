@@ -1,7 +1,7 @@
 import pygame
 
 class Troops():
-    def __init__(self, size, speed, health, dps, team=0):
+    def __init__(self, size, speed, health, dps, cost, team=0):
         self.team = team
         if self.team != 0:
             self.speed = -speed
@@ -10,9 +10,9 @@ class Troops():
         self.health = health
         self.dps = dps
         self.size = size
+        self.cost = cost
 
     def kill(self):
-        if self.health <= 0:
             
 
     def draw(self):
