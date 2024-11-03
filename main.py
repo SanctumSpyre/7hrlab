@@ -202,7 +202,7 @@ class Cannonball:
 class Enemy:
     def __init__(self):
         self.level = 1
-        self.troops = []
+        self.enemies = []
         self.soldier_reset = 360
         self.cycles = 0
     
@@ -214,7 +214,7 @@ class Enemy:
             if self.soldier_reset > 30:
                 self.soldier_reset -= 30
 
-        for troop in troops:
+        for troop in self.troops:
             troop.update()
             troop.draw()
 
