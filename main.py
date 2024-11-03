@@ -44,7 +44,7 @@ class Button():
         
 
             
-        pygame.draw.rect(screen, (0, 0, 0), self.rect)
+        pygame.draw.rect(screen, (255, 255, 255), self.rect)
     
 class Player():
     def __init__(self, money):
@@ -207,7 +207,7 @@ class Enemy:
 # game loop
 troops = []
 soldier_button = Button((0,0),1,1,'soldier')
-cannon_upgrade_button = Button((50,0),1,1,'cannon_upgrade')
+cannon_upgrade_button = Button((75,0),1,1,'cannon_upgrade')
 tick_count = 0
 player0 = Player(0)
 cannon = Cannon()
@@ -219,7 +219,7 @@ while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_q]:
+    if keys[pygame.K_q]:self.level = level
         running = False
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
