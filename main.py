@@ -31,7 +31,6 @@ class Troops():
     def draw(self):
         
 
-
 # Castle class
 # 1920 x 1080
 castle_health = 1000
@@ -46,11 +45,13 @@ class Castle:
         if team:
             self.x = 1920 - castle_width/2
         else:
-            self.x = castle_width/2
+            self.x = -castle_width/2
         self.y = 1080 - castle_height
+        
+        self.rect = pygame.Rect((self.x, self.y), (castle_width, castle_height))
 
     def draw(self):
-        pygame.draw.rect(screen, (0, 0, 0), (self.x, self.y))
+        pygame.draw.rect(screen, (0, 0, 0), self.rect)
 
 
 
@@ -72,6 +73,9 @@ class Sprite(pygame.sprite.Sprite):
   
         self.rect = self.image.get_rect()  
 
+# game loop
+player_castle = Castle(0, 0)
+enemy_castle = Castle(1, 1)
 while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
@@ -87,6 +91,8 @@ while running:
     screen.fill("grey")
 
     # RENDER YOUR GAME HERE
+    player_castle.draw()
+    enemy_castle.draw()
 
     # flip() the display to put your work on screen
     pygame.display.flip()
