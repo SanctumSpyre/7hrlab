@@ -91,10 +91,10 @@ class Cannon:
         self.reload = 10 // level
         self.damage = 2 * level
         self.x0, self.y0 = (50, 1035 - castle_height)
-        self.cannonballs = {}
+        self.cannonballs = set()
 
     def draw(self):
-        to_remove = {}
+        to_remove = set()
         for ball in self.cannonballs:
             if ball.center[0] < 0 or ball.center[0] > WIDTH or ball.center[1] < 0 or ball.center[1] > HEIGHT:
                 to_remove.add(ball)
