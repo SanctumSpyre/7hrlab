@@ -13,31 +13,30 @@ WIDTH = 1920
 HEIGHT = 1080
 MOUSE_CLICKED = pygame.USEREVENT + 1
 mouse_clicked = pygame.event.Event(MOUSE_CLICKED)
-
+SOLDIER_CLICKED = pygame.USEREVENT + 2
+soldier_clicked = pygame.event.Event(SOLDIER_CLICKED)
 # Object class 
 class Button():
     def __init__(self, position, cd, cost):
         self.position = position
         self.cd = cd
         self.cost = cost
+        self.clicked = False
+        self.rect = pygame.Rect(self.position,(50,50)) 
 
     def draw(self):
         # click handling
         mouse_pos = pygame.mouse.get_pos()
 
-      if self.rect.collidepoint(mouse_pos):
-         if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
-            self.clicked = True
-      if pygame.mouse.get_pressed()[0] == 0 and self.clicked == True:
-         pygame.event.post(button_pressed)
-         self.clicked = False
-         if self.playing:
-            self.playing = 0
-         else:
-            self.playing = 1
+        if self.rect.collidepoint(mouse_pos):
+            if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
+                self.clicked = True
+        if pygame.mouse.get_pressed()[0] == 0 and self.clicked == True:
+            pygame.event.post(soldier_clicked)
+            self.clicked = False
 
             
-        pygame.draw.rect(screen, (0, 0, 0), (self.position, (50, 50)))
+        pygame.draw.rect(screen, (0, 0, 0), self.rect)
     
 class Player():
     def __init__(self, money):
@@ -58,14 +57,14 @@ class Player():
         textRect.center = (X, Y // 2)
         screen.blit(text, textRect)
         
-class Troops():
+class Troop():
     def __init__(self, size, speed, health, dps, cost, team=0):
         self.team = team
         if self.team != 0:
-            self.speed = -speed, tipe,
+            self.speed = -speed
         else:
             self.speed = speed
-        self.health = healthtext = font.render('GeeksForGeeks', True, green, blue)
+        self.health = health
         self.dps = dps
         self.size = size
         self.cost = cost
@@ -74,8 +73,7 @@ class Troops():
         pass
 
     def draw(self):
-        pass
-        #pygame.draw.rect(screen, (0, 0, 0), ((0, 1050 - castle_height), (50, 30)))
+        pygame.draw.rect(screen, (0, 0, 0), ((500,500), self.size))
 
 # Castle class
 # 1920 x 1080
@@ -143,6 +141,7 @@ class Cannonball:
 
 
 # game loop
+troops = []
 soldier_button = Button((0,0),1,1)
 tick_count = 0
 player0 = Player(0)
@@ -159,8 +158,11 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if event.type == MOUSE_CLICKED:
+        elif event.type == SOLDIER_CLICKED:
+            troops.append(Troop((16,16),1/60,1,1,10,0))
+        elif event.type == MOUSE_CLICKED:
             cannon.fire(pygame.mouse.get_pos())
+
 
     # looking for mouse click
     if pygame.mouse.get_pressed()[0] == 1 and clicked == False:
@@ -180,7 +182,8 @@ while running:
     soldier_button.draw()
     player_castle.draw()
     enemy_castle.draw()
-
+    for troop in troops:
+        troop.draw()
 
 
     if tick_count >= 1:
