@@ -73,6 +73,7 @@ class Troops():
 
     def kill(self):
         pass
+    
 
     def draw(self):
         pass
