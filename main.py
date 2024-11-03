@@ -116,7 +116,8 @@ class Castle:
 
 # Cannon class
 class Cannon:
-    def __init__(self, level=1):
+    def __init__(self):
+        self.level = 1
         self.speed = 10 * self.level
         self.reload = 120 // (self.level*0.5 + 0.5)
         self.damage = 2 * self.level
@@ -126,8 +127,7 @@ class Cannon:
         self.cycles = 0
         self.x, self.y = 0, 1050 - castle_height
         self.rect = pygame.Rect((self.x, self.y), (50, 30))
-        self.cdbar_max_x = 50
-        self.cdbar_y = self.level = level
+        
     def draw(self):
         if not self.ready:
             p = self.cycles / self.reload 
