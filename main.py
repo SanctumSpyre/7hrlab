@@ -168,10 +168,10 @@ class Cannon:
     def draw(self):
         if not self.ready:
             p = self.cycles / self.reload 
-            pygame.draw.rect(screen, (0, 0, 0), ((0, 1050 - castle_height - 10), (50*p, 5)))
+            pygame.draw.rect(screen, (0, 0, 0), ((castle_width, 1050 - castle_height), (50*p, 5)))
             self.cycles += 1
         else:
-            pygame.draw.rect(screen, (0, 0, 0), ((0, 1050 - castle_height - 10), (50, 5)))
+            pygame.draw.rect(screen, (0, 0, 0), ((castle_width, 1050 - castle_height), (50, 5)))
 
         if self.cycles >= self.reload:
             self.ready = True
@@ -182,7 +182,7 @@ class Cannon:
                 to_remove.add(ball)
             ball.draw()
         self.cannonballs = self.cannonballs.difference(to_remove)
-        pygame.draw.rect(screen, (0, 0, 0), ((0, 1050 - castle_height), (50, 30)))
+        pygame.draw.rect(screen, (0, 0, 0), ((0, self.y0 - 25), (castle_width + 50, 40)))
 
     def fire(self, dst):
         if self.ready:
