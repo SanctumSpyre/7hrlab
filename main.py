@@ -97,7 +97,7 @@ class Troop():
         if team == 0:
             self.x = 250
         else:
-            self.x = WIDTH - 250
+            self.x = WIDTH - 92
         self.y = 980
 
     def update(self):
