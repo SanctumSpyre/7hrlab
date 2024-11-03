@@ -128,6 +128,8 @@ class Cannon:
             p = self.cycles / self.reload 
             pygame.draw.rect(screen, (0, 0, 0), ((0, 1050 - castle_height - 10), (50*p, 5)))
             self.cycles += 1
+        else:
+            pygame.draw.rect(screen, (0, 0, 0), ((0, 1050 - castle_height - 10), (50, 5)))
 
         if self.cycles >= self.reload:
             self.ready = True
