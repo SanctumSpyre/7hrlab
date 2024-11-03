@@ -1,4 +1,5 @@
 import pygame
+import numpy as np
 pygame.init()
 screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 clock = pygame.time.Clock()
@@ -36,7 +37,7 @@ class Button():
          else:
             self.playing = 1
 
-            
+
         pygame.draw.rect(screen, (0, 0, 0), (self.position, (50, 50)))
     
 class Player():
@@ -104,6 +105,7 @@ class Castle:
 # Cannon class
 class Cannon:
     def __init__(self, level=1):
+        self.speed = 0.2 * level
         self.reload = 10 // level
         self.damage = 2 * level
         self.x0, self.y0 = (50, 1035 - castle_height)
@@ -120,8 +122,12 @@ class Cannon:
 
     def fire(self, dst):
         x, y = dst[0], dst[1]
-        vector = [(x - self.x0) // 20, (y - self.y0) // 20]
+        vector = np.array[x - self.x0, y - self.y0]
+        magnitude = np.linalg.norm(vector)
+        unit_vector = vector / magnitude
+        vector = unit_vector * self.speed
         self.cannonballs.add(Cannonball([self.x0, self.y0], vector, self.damage))
+
 
 
 # Cannonball class
