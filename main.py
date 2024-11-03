@@ -91,8 +91,8 @@ class Cannon:
 
     def fire(self, dst):
         x, y = dst[0], dst[1]
-        vector = [(x - self.x0) // 5, (y - self.y0) // 5]
-        self.cannonballs.append(Cannonball((self.x0, self.y0), vector, self.damage))
+        vector = [(x - self.x0) // 20, (y - self.y0) // 20]
+        self.cannonballs.append(Cannonball([self.x0, self.y0], vector, self.damage))
 
 
 # Cannonball class
@@ -104,7 +104,9 @@ class Cannonball:
         self.radius = 10
 
     def draw(self):
-        pygame.draw.circle(screen, self.center, self.radius)
+        self.center[0] += self.vector[0]
+        self.center[1] += self.vector[1]
+        pygame.draw.circle(screen, (0, 0, 0), self.center, self.radius)
 
 
 
@@ -140,7 +142,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == MOUSE_CLICKED:
-            player_castle.fire(pygame.mouse.get_pos())
+            cannon.fire(pygame.mouse.get_pos())
 
     # looking for mouse click
     if pygame.mouse.get_pressed()[0] == 1 and clicked == False:
