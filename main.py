@@ -12,6 +12,7 @@ HEIGHT = 500
 
 # Object class 
 
+# Troop class
 class Troops():
     def __init__(self, size, speed, health, dps, cost, team=0):
         self.team = team
@@ -25,21 +26,31 @@ class Troops():
         self.cost = cost
 
     def kill(self):
-            
+        
 
     def draw(self):
+        
 
 
+# Castle class
+# 1920 x 1080
+castle_health = 1000
+castle_width = 200
+castle_height = 600
 
+class castle:
+    def __init__(self, cannon, team):
+        self.health = castle_health
+        self.cannon = cannon
 
+        if team:
+            self.x = 1920 - castle_width/2
+        else:
+            self.x = castle_width/2
+        self.y = 1080 - castle_height
 
-
-
-
-
-
-
-
+    def draw(self):
+        pygame.draw.rect(screen, (0, 0, 0), (self.x, self.y))
 
 
 
