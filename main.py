@@ -259,7 +259,7 @@ while running:
     for enemy in enemy_ai.troops:
         if enemy.x <= castle_width/2:
             to_delete_enemies.add(enemy)
-            player_castle.health -= enemy.damage*5
+            player_castle.health -= enemy.damage*20
             if player_castle.health <= 0:
                 running = False
         for troop in troops:
