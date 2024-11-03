@@ -69,13 +69,20 @@ class Troop():
         self.dps = dps
         self.size = size
         self.cost = cost
+        if team == 0:
+            self.x == 0
+        else:
+            self.x == 1920
+
+    def update(self):
+        self.x += self.speed
 
     def kill(self):
         pass
     
 
     def draw(self):
-        pygame.draw.rect(screen, (0, 0, 0), ((500,500), self.size))
+        pygame.draw.rect(screen, (0, 0, 0), ((self.x,self.y), self.size))
 
 # Castle class
 # 1920 x 1080
@@ -191,6 +198,8 @@ while running:
     soldier_button.draw()
     player_castle.draw()
     enemy_castle.draw()
+    for troop in troops:
+        troop.update()
     for troop in troops:
         troop.draw()
 
