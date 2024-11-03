@@ -158,7 +158,7 @@ class Cannon:
         self.speed = 10 + self.level
         self.reload = 120 // (self.level*0.5 + 0.5)
         self.damage = 2 * self.level
-        self.x0, self.y0 = (50, 1035 - castle_height)
+        self.x0, self.y0 = (50 + castle_width, 1100 - castle_height)
         self.cannonballs = set()
         self.ready = False
         self.cycles = 0
@@ -270,7 +270,7 @@ while running:
     to_delete_enemies = set()
     to_delete_troops = set()
     for enemy in enemy_ai.troops:
-        if enemy.x <= castle_width:
+        if enemy.x <= castle_width/2:
             to_delete_enemies.add(enemy)
             player_castle.health -= enemy.damage*20
             pygame.mixer.music.load('explode.mp3')
