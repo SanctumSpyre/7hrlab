@@ -128,7 +128,7 @@ class Castle:
         self.team = team
 
         if team:
-            self.x = 1920 - castle_width/2
+            self.x = 1920 - castle_width
         else:
             self.x = 0
         self.y = 1080 - castle_height
