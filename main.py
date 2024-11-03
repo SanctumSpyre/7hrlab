@@ -313,7 +313,7 @@ while running:
     tick_count += 1/60.0
     if tick_count >= 1:
         player0.gain_money(1)
-
+        tick_count = 0
     player0.display_money()
     soldier_button.draw()
     cannon_upgrade_button.draw()
@@ -326,10 +326,6 @@ while running:
         troop.update()
     for troop in troops:
         troop.draw()
-
-
-    if tick_count >= 1:
-        tick_count = 0
 
     # flip() the display to put your work on screen
     pygame.display.flip()
