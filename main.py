@@ -57,7 +57,7 @@ class Button():
             text2 = my_font.render('Upgrade: 30', True,'yellow', 'black')
             textRect = text.get_rect()
             textRect2 = text2.get_rect()
-            X = 200
+            X = 250
             Y = 50
             Y2 = 100
             textRect.center = (X, Y // 2)
@@ -85,7 +85,7 @@ class Player():
         screen.blit(text, textRect)
         
 class Troop():
-    def __init__(self, size, speed, health, dps, team=0):
+    def __init__(self, size, speed, health, dps, cost, team=0):
         self.team = team
         if self.team != 0:
             self.speed = -speed
@@ -94,14 +94,16 @@ class Troop():
         self.health = health
         self.dps = dps
         self.size = size
+        self.cost = cost
         if team == 0:
             self.x = 250
         else:
-            self.x = WIDTH - 92
+            self.x = 1920
         self.y = 980
 
-        self.rect = pygame.Rect((self.x, self.y), self.size)
+        self.rect = pygame.Rect((self.x, self.y), (self.size))
 
+>>>>>>> 0e364bd2606a0dc99006998bd9972b0f7b525ee1
     def update(self):
         self.x += self.speed
         self.rect = pygame.Rect((self.x, self.y), self.size)
@@ -111,7 +113,7 @@ class Troop():
     
 
     def draw(self):
-        pygame.draw.rect(screen, (0, 0, 0), self.rect)
+        pygame.draw.rect(screen, (0, 0, 0), ((self.x,self.y), self.size))
 
 
 castle_health = 1000
@@ -125,7 +127,7 @@ class Castle:
         if team:
             self.x = 1920 - castle_width/2
         else:
-            self.x = 0
+            self.x = -castle_width/2
         self.y = 1080 - castle_height
         
         self.rect = pygame.Rect((self.x, self.y), (castle_width, castle_height))
@@ -202,29 +204,10 @@ class Cannonball:
         pygame.draw.circle(screen, (0, 0, 0), self.center, self.radius)
 
 
-
 # Enemy class
 class Enemy:
     def __init__(self):
-        self.level = 1
-        self.troops = set()
-        self.soldier_reset = 360
-        self.cycles = 0
-    
-    def draw(self):
-        self.cycles += 1
-        if self.cycles % self.soldier_reset == 0:
-            self.troops.add(Troop((16,16),1/2,1,1,1))
-        if self.cycles % 1200 == 0:
-            if self.soldier_reset > 30:
-                self.soldier_reset -= 30
-
-        for troop in self.troops:
-            troop.update()
-            troop.draw()
-
-
-
+        pass
 
 
 
@@ -238,15 +221,15 @@ player0 = Player(0)
 cannon = Cannon()
 player_castle = Castle(cannon, 0)
 enemy_castle = Castle(None, 1)
-enemy_ai = Enemy()
 clicked = False
 while running:
     # poll for events
-    for ball in cannon.cannonballs:
-        for enemy in enemy_ai.troops:
-            if ball.rect.colliderect(enemy.rect):
-                enemy_ai.troops.remove(enemy)
+    # for ball in cannon.cannonballs:
+    #     for enemy in enemy_ai.troops:
+    #         if ball.colliderect(enemy.rect):
+    #             enemy_ai.troops.remove(enemy)
 
+>>>>>>> 0e364bd2606a0dc99006998bd9972b0f7b525ee1
     # pygame.QUIT event means the user clicked X to close your window
     keys = pygame.key.get_pressed()
     if keys[pygame.K_q]:
@@ -256,15 +239,21 @@ while running:
             running = False
         elif event.type == SOLDIER_CLICKED:
             if player0.money >= 10:
-                troops.append(Troop((16,16),1/2,1,1,0))
+                troops.append(Troop((16,16),1/2,1,1,10,0))
                 player0.lose_money(10)
         elif event.type == CANNON_UPGRADE_CLICKED:
             if player0.money >= 30:
                 cannon.upgrade()
+                # cannon.speed *= 2
+                # cannon.reload = cannon.reload(.9)
+                # cannon.damage += 2
                 player0.lose_money(30)
+
+
         elif event.type == MOUSE_CLICKED:
             if pygame.mouse.get_pos()[1] >= 100:
                 cannon.fire(pygame.mouse.get_pos())
+
 
     # looking for mouse click
     if pygame.mouse.get_pressed()[0] == 1 and clicked == False:
@@ -280,15 +269,15 @@ while running:
     tick_count += 1/60.0
     if tick_count >= 1:
         player0.gain_money(1)
+<<<<<<< HEAD
+=======
 
+>>>>>>> 0e364bd2606a0dc99006998bd9972b0f7b525ee1
     player0.display_money()
     soldier_button.draw()
     cannon_upgrade_button.draw()
     player_castle.draw()
-
     enemy_castle.draw()
-    enemy_ai.draw()
-
     for troop in troops:
         troop.update()
     for troop in troops:
