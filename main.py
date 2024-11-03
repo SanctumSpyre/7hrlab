@@ -112,15 +112,21 @@ class Castle:
 class Cannon:
     def __init__(self, level=1):
         self.speed = 10 * level
-        self.reload = 240 // (level*0.5 + 0.5)
+        self.reload = 120 // (level*0.5 + 0.5)
         self.damage = 2 * level
         self.x0, self.y0 = (50, 1035 - castle_height)
         self.cannonballs = set()
-        self.ready = True
+        self.ready = False
         self.cycles = 0
+        self.x, self.y = 0, 1050 - castle_height
+        self.rect = pygame.Rect((self.x, self.y), (50, 30))
+        self.cdbar_max_x = 50
+        self.cdbar_y = 5
 
     def draw(self):
         if not self.ready:
+            p = self.cycles / self.reload 
+            pygame.draw.rect(screen, (0, 0, 0), ((0, 1050 - castle_height - 10), (50*p, 5)))
             self.cycles += 1
 
         if self.cycles >= self.reload:
