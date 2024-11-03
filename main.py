@@ -131,7 +131,7 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if event.type == pygame.MOUSE_CLICKED:
+        if event.type == MOUSE_CLICKED:
             player_castle.fire(pygame.mouse.get_pos())
 
     # looking for mouse click
