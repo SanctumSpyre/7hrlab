@@ -247,6 +247,7 @@ while running:
             to_delete = set()
             if ball.rect.colliderect(enemy.rect):
                 to_delete.add(enemy)
+            player0.gain_money(2*len(to_delete))
             
             enemy_ai.troops = enemy_ai.troops.difference(to_delete)
 
