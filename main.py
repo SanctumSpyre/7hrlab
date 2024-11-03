@@ -72,6 +72,7 @@ class Troop():
 
     def kill(self):
         pass
+    
 
     def draw(self):
         pygame.draw.rect(screen, (0, 0, 0), ((500,500), self.size))
