@@ -111,11 +111,12 @@ class Castle:
 # Cannon class
 class Cannon:
     def __init__(self, level=1):
-        self.speed = 0.2 * level
+        self.speed = 10 * level
         self.reload = 10 // level
         self.damage = 2 * level
         self.x0, self.y0 = (50, 1035 - castle_height)
         self.cannonballs = set()
+        self.ready = True
 
     def draw(self):
         to_remove = set()
@@ -133,6 +134,7 @@ class Cannon:
         unit_vector = vector / magnitude
         vector = unit_vector * self.speed
         self.cannonballs.add(Cannonball([self.x0, self.y0], vector, self.damage))
+        self.ready = False
 
 
 
