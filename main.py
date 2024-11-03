@@ -127,7 +127,7 @@ class Cannon:
         self.cycles = 0
         self.x, self.y = 0, 1050 - castle_height
         self.rect = pygame.Rect((self.x, self.y), (50, 30))
-        
+
     def draw(self):
         if not self.ready:
             p = self.cycles / self.reload 
@@ -182,7 +182,8 @@ class Cannonball:
 
 # Enemy class
 class Enemy:
-    pass
+    def __init__(self):
+        pass
 
 
 
