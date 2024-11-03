@@ -100,6 +100,8 @@ class Troop():
             self.x = WIDTH - 92
         self.y = 980
 
+        self.rect = pygame.Rect((self.x, self.y), self.size)
+
     def update(self):
         self.x += self.speed
 
@@ -108,7 +110,7 @@ class Troop():
     
 
     def draw(self):
-        pygame.draw.rect(screen, (0, 0, 0), ((self.x,self.y), self.size))
+        pygame.draw.rect(screen, (0, 0, 0), self.rect)
 
 
 castle_health = 1000
@@ -198,18 +200,19 @@ class Cannonball:
         pygame.draw.circle(screen, (0, 0, 0), self.center, self.radius)
 
 
+
 # Enemy class
 class Enemy:
     def __init__(self):
         self.level = 1
-        self.troops = []
+        self.troops = set()
         self.soldier_reset = 360
         self.cycles = 0
     
     def draw(self):
         self.cycles += 1
         if self.cycles % self.soldier_reset == 0:
-            self.troops.append(Troop((16,16),1/2,1,1,1))
+            self.troops.add(Troop((16,16),1/2,1,1,1))
         if self.cycles % 1200 == 0:
             if self.soldier_reset > 30:
                 self.soldier_reset -= 30
@@ -237,6 +240,11 @@ enemy_ai = Enemy()
 clicked = False
 while running:
     # poll for events
+    for ball in cannon.cannonballs:
+        for enemy in enemy_ai.troops:
+            if ball.colliderect(enemy.rect):
+                enemy_ai.troops.remove(enemy)
+
     # pygame.QUIT event means the user clicked X to close your window
     keys = pygame.key.get_pressed()
     if keys[pygame.K_q]:
