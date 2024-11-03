@@ -193,7 +193,9 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         elif event.type == SOLDIER_CLICKED:
-            troops.append(Troop((16,16),1/2,1,1,10,0))
+            if player0.money >= 10:
+                troops.append(Troop((16,16),1/2,1,1,10,0))
+                player0.lose_money(10)
         elif event.type == MOUSE_CLICKED:
             cannon.fire(pygame.mouse.get_pos())
 
