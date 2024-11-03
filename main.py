@@ -193,13 +193,14 @@ class Cannonball:
         self.vector = vector
         self.damage = damage
         self.radius = 10
-        self.rect = pygame.Rect(0, 0, 2 * self.radius, 2 * self.radius)
+        self.rect = pygame.Rect(center[0]-self.radius, center[1]-self.radius, self.radius*2, self.radius*2)
 
     def draw(self):
         self.vector[1] += 0.3
         self.center[0] += self.vector[0]
         self.center[1] += self.vector[1]
         pygame.draw.circle(screen, (0, 0, 0), self.center, self.radius)
+        self.rect = pygame.Rect(self.center[0]-self.radius, self.center[1]-self.radius, self.radius*2, self.radius*2)
 
 
 # Enemy class
