@@ -139,7 +139,7 @@ class Castle:
         if self.cannon:
             self.cannon.draw()
         if self.team == 0:
-            pygame.draw.rect(screen, (0, 0, 0), ((0, 200), (self.castle_health, 10)))
+            pygame.draw.rect(screen, (0, 0, 0), ((0, 200), (self.health, 10)))
         pygame.draw.rect(screen, (0, 0, 0), self.rect)
 
 # Cannon class
