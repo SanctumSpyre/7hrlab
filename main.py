@@ -143,6 +143,9 @@ class Castle:
             self.cannon.draw()
         if self.team == 0:
             pygame.draw.rect(screen, (0, 0, 0), ((0, 200), (self.health, 10)))
+        else:
+            pygame.draw.rect(screen, (0, 0, 0), ((WIDTH - self.health, 200), (self.health, 10)))
+            
         pygame.draw.rect(screen, (0, 0, 0), self.rect)
         pygame.draw.rect(screen, (0, 0, 0), self.rect1)
         pygame.draw.rect(screen, (0, 0, 0), self.rect2)
@@ -183,6 +186,8 @@ class Cannon:
 
     def fire(self, dst):
         if self.ready:
+            pygame.mixer.music.load('cannon.mp3')
+            pygame.mixer.music.play()
             x, y = dst[0], dst[1]
             vector = np.array([x - self.x0, y - self.y0])
             magnitude = np.linalg.norm(vector)
@@ -227,10 +232,9 @@ class Enemy:
     def draw(self):
         self.cycles += 1
         if self.cycles % self.soldier_reset == 0:
-            self.troops.add(Troop((16,16),1/2,1,1,1))
+            self.troops.add(Troop((16,16),1.5,1,1,1))
         if self.cycles % 1200 == 0:
-            if self.soldier_reset > 30:
-                self.soldier_reset -= 30
+            if self.soldier_reset > 30:to_delete_enemies.add(enemy)
 
         for troop in self.troops:
             troop.update()
@@ -256,6 +260,8 @@ while running:
         for enemy in enemy_ai.troops:
             to_delete = set()
             if ball.rect.colliderect(enemy.rect):
+                pygame.mixer.music.load('hit.mp3')
+                pygame.mixer.music.play()
                 to_delete.add(enemy)
             player0.gain_money(2*len(to_delete))
             
@@ -266,14 +272,28 @@ while running:
     for enemy in enemy_ai.troops:
         if enemy.x <= castle_width/2:
             to_delete_enemies.add(enemy)
-            player_castle.health -= enemy.damage
+            player_castle.health -= enemy.damage*20
+            pygame.mixer.music.load('explode.mp3')
+            pygame.mixer.music.play()
+            if player_castle.health <= 0:
+                running = False
         for troop in troops:
             if enemy.rect.colliderect(troop):
                 to_delete_troops.add(troop)
                 to_delete_enemies.add(enemy)
-
     troops = troops.difference(to_delete_troops)
     enemy_ai.troops = enemy_ai.troops.difference(to_delete_enemies)
+
+    to_delete_troops = set()
+    for troop in troops:
+        if troop.x > WIDTH - castle_width:
+            to_delete_troops.add(troop)
+            pygame.mixer.music.load('explode.mp3')
+            pygame.mixer.music.play()
+            enemy_castle.health -= troop.damage*20
+
+    troops = troops.difference(to_delete_troops)
+
 
 
     # pygame.QUIT event means the user clicked X to close your window
@@ -285,7 +305,7 @@ while running:
             running = False
         elif event.type == SOLDIER_CLICKED:
             if player0.money >= 10:
-                troops.append(Troop((16,16),1/2,1,1,0))
+                troops.add(Troop((16,16),1.5,1,1,0))
                 player0.lose_money(10)
         elif event.type == CANNON_UPGRADE_CLICKED:
             if player0.money >= 30:
@@ -312,7 +332,9 @@ while running:
     tick_count += 1/60.0
     if tick_count >= 1:
         player0.gain_money(1)
+        tick_count = 0
 
+        
     player0.display_money()
     soldier_button.draw()
     cannon_upgrade_button.draw()
@@ -325,10 +347,6 @@ while running:
         troop.update()
     for troop in troops:
         troop.draw()
-
-
-    if tick_count >= 1:
-        tick_count = 0
 
     # flip() the display to put your work on screen
     pygame.display.flip()
