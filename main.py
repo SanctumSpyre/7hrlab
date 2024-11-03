@@ -3,6 +3,7 @@ pygame.init()
 screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 clock = pygame.time.Clock()
 running = True
+pygame.font.init()
 
 # GLOBAL VARIABLES 
 COLOR = (255, 100, 98) 
@@ -22,7 +23,7 @@ class Player():
         self.money -= spendings
 
     def display_money(self):
-        
+        pass
         
 class Troops():
     def __init__(self, size, speed, health, dps, cost, team=0):
@@ -37,10 +38,10 @@ class Troops():
         self.cost = cost
 
     def kill(self):
-        
+        pass
 
     def draw(self):
-        
+        pass
 
 # Castle class
 # 1920 x 1080
@@ -85,6 +86,7 @@ class Sprite(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()  
 
 # game loop
+player0 = Player(0)
 player_castle = Castle(0, 0)
 enemy_castle = Castle(1, 1)
 while running:
@@ -102,6 +104,7 @@ while running:
     screen.fill("grey")
 
     # RENDER YOUR GAME HERE
+    player0.display_money()
     player_castle.draw()
     enemy_castle.draw()
 
