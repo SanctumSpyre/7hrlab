@@ -4,7 +4,11 @@ screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 clock = pygame.time.Clock()
 running = True
 
-
+# GLOBAL VARIABLES 
+COLOR = (255, 100, 98) 
+SURFACE_COLOR = (167, 255, 100) 
+WIDTH = 500
+HEIGHT = 500
 
 # Object class 
 class Sprite(pygame.sprite.Sprite): 
@@ -20,7 +24,7 @@ class Sprite(pygame.sprite.Sprite):
                          pygame.Rect(0, 0, width, height)) 
   
         self.rect = self.image.get_rect()  
-        
+
 while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
