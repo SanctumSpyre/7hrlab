@@ -105,7 +105,7 @@ class Cannon:
     def fire(self, dst):
         x, y = dst[0], dst[1]
         vector = [(x - self.x0) // 20, (y - self.y0) // 20]
-        self.cannonballs.append(Cannonball([self.x0, self.y0], vector, self.damage))
+        self.cannonballs.add(Cannonball([self.x0, self.y0], vector, self.damage))
 
 
 # Cannonball class
