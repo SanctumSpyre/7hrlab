@@ -70,9 +70,9 @@ class Troop():
         self.size = size
         self.cost = cost
         if team == 0:
-            self.x == 0
+            self.x = 0
         else:
-            self.x == 1920
+            self.x = 1920
 
     def update(self):
         self.x += self.speed
