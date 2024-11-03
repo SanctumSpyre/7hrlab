@@ -70,9 +70,10 @@ class Troop():
         self.size = size
         self.cost = cost
         if team == 0:
-            self.x = 0
+            self.x = 250
         else:
             self.x = 1920
+        self.y = 980
 
     def update(self):
         self.x += self.speed
@@ -175,7 +176,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         elif event.type == SOLDIER_CLICKED:
-            troops.append(Troop((16,16),1/60,1,1,10,0))
+            troops.append(Troop((16,16),1/2,1,1,10,0))
         elif event.type == MOUSE_CLICKED:
             cannon.fire(pygame.mouse.get_pos())
 
