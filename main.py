@@ -15,25 +15,10 @@ class Player():
     def __init__(self, money):
         self.money = money
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    self.gain_money(self, income):
+    def gain_money(self, income):
         self.money += income
 
-    self.lose_money(self, spendings):
+    def lose_money(self, spendings):
         self.money -= spendings
         
 class Troops():
