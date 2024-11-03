@@ -9,8 +9,8 @@ my_font = pygame.font.SysFont('Comic Sans MS', 30)
 # GLOBAL VARIABLES 
 COLOR = (255, 100, 98) 
 SURFACE_COLOR = (167, 255, 100) 
-WIDTH = 500
-HEIGHT = 500
+WIDTH = 1920
+HEIGHT = 1080
 MOUSE_CLICKED = pygame.USEREVENT + 1
 mouse_clicked = pygame.event.Event(MOUSE_CLICKED)
 
@@ -82,11 +82,15 @@ class Cannon:
         self.reload = 10 // level
         self.damage = 2 * level
         self.x0, self.y0 = (50, 1035 - castle_height)
-        self.cannonballs = []
+        self.cannonballs = {}
 
     def draw(self):
+        to_remove = {}
         for ball in self.cannonballs:
+            if ball.center[0] < 0 or ball.center[0] > WIDTH or ball.center[1] < 0 or ball.center[1] > HEIGHT:
+                to_remove.add(ball)
             ball.draw()
+        self.cannonballs.difference(to_remove)
         pygame.draw.rect(screen, (0, 0, 0), ((0, 1050 - castle_height), (50, 30)))
 
     def fire(self, dst):
@@ -105,7 +109,7 @@ class Cannonball:
 
     def draw(self):
         self.center[0] += self.vector[0]
-        self.center[1] += self.vector[1]
+        self.center[1] += self.vector[1] - 5
         pygame.draw.circle(screen, (0, 0, 0), self.center, self.radius)
 
 
