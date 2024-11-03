@@ -121,6 +121,7 @@ class Castle:
     def __init__(self, cannon, team):
         self.health = castle_health
         self.cannon = cannon
+        self.team = team
 
         if team:
             self.x = 1920 - castle_width/2
