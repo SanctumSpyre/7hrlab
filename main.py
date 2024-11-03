@@ -191,7 +191,7 @@ class Enemy:
 # game loop
 troops = []
 soldier_button = Button((0,0),1,1,'soldier')
-cannon_upgrade_button = Button((50,0),1,1,'cannon_upgrade')
+cannon_upgrade_button = Button((75,0),1,1,'cannon_upgrade')
 tick_count = 0
 player0 = Player(0)
 cannon = Cannon()
