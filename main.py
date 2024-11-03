@@ -221,14 +221,9 @@ class Enemy:
     def draw(self):
         self.cycles += 1
         if self.cycles % self.soldier_reset == 0:
-            self.troops.add(Troop((16,16),1/2,1,1,1))
+            self.troops.add(Troop((16,16),1.5,1,1,1))
         if self.cycles % 1200 == 0:
-            if self.soldier_reset > 30:
-                self.soldier_reset -= 30
-
-        for troop in self.troops:
-            troop.update()
-            troop.draw()
+            if self.soldier_reset > 30:to_delete_enemies.add(enemy)
 
 
 
@@ -279,7 +274,7 @@ while running:
             running = False
         elif event.type == SOLDIER_CLICKED:
             if player0.money >= 10:
-                troops.append(Troop((16,16),1/2,1,1,0))
+                troops.add(Troop((16,16),1.5,1,1,0))
                 player0.lose_money(10)
         elif event.type == CANNON_UPGRADE_CLICKED:
             if player0.money >= 30:
