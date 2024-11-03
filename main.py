@@ -122,7 +122,7 @@ class Castle:
         if team:
             self.x = 1920 - castle_width/2
         else:
-            self.x = -castle_width/2
+            self.x = 0
         self.y = 1080 - castle_height
         
         self.rect = pygame.Rect((self.x, self.y), (castle_width, castle_height))
