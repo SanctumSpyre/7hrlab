@@ -117,9 +117,9 @@ class Castle:
 # Cannon class
 class Cannon:
     def __init__(self, level=1):
-        self.speed = 10
-        self.reload = 120 // (0.5 + 0.5)
-        self.damage = 2
+        self.speed = 10 * self.level
+        self.reload = 120 // (self.level*0.5 + 0.5)
+        self.damage = 2 * self.level
         self.x0, self.y0 = (50, 1035 - castle_height)
         self.cannonballs = set()
         self.ready = False
@@ -156,6 +156,12 @@ class Cannon:
             vector = unit_vector * self.speed
             self.cannonballs.add(Cannonball([self.x0, self.y0], vector, self.damage))
         self.ready = False
+    
+    def upgrade(self):
+        self.level += 1
+        self.speed = 10 * self.level
+        self.reload = 120 // (self.level*0.5 + 0.5)
+        self.damage = 2 * self.level
 
 
 
@@ -176,7 +182,7 @@ class Cannonball:
 
 # Enemy class
 class Enemy:
-    self.__in
+    pass
 
 
 
@@ -206,9 +212,10 @@ while running:
                 player0.lose_money(10)
         elif event.type == CANNON_UPGRADE_CLICKED:
             if player0.money >= 30:
-                cannon.speed *= 2
-                cannon.reload = cannon.reload(.9)
-                cannon.damage += 2
+                cannon.upgrade()
+                # cannon.speed *= 2
+                # cannon.reload = cannon.reload(.9)
+                # cannon.damage += 2
                 player0.lose_money(30)
 
 
