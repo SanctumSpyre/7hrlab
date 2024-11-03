@@ -97,7 +97,7 @@ class Troop():
         if team == 0:
             self.x = 250
         else:
-            self.x = 1920
+            self.x = 1920 - castle_width + 8
         self.y = 980
 
         self.rect = pygame.Rect((self.x, self.y), self.size)
@@ -241,6 +241,7 @@ while running:
     for ball in cannon.cannonballs:
         for enemy in enemy_ai.troops:
             if ball.rect.colliderect(enemy.rect):
+                print('hello')
                 enemy_ai.troops.remove(enemy)
 
     # pygame.QUIT event means the user clicked X to close your window
