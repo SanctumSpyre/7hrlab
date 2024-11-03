@@ -270,7 +270,7 @@ while running:
     to_delete_enemies = set()
     to_delete_troops = set()
     for enemy in enemy_ai.troops:
-        if enemy.x <= castle_width/2:
+        if enemy.x <= castle_width:
             to_delete_enemies.add(enemy)
             player_castle.health -= enemy.damage*20
             pygame.mixer.music.load('explode.mp3')
