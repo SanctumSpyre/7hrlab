@@ -117,7 +117,7 @@ class Cannonball:
         self.radius = 10
 
     def draw(self):
-        self.vector[1] += 5
+        self.vector[1] += 0.3
         self.center[0] += self.vector[0]
         self.center[1] += self.vector[1]
         pygame.draw.circle(screen, (0, 0, 0), self.center, self.radius)
