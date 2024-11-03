@@ -259,7 +259,7 @@ while running:
     to_delete_troops = set()
     for enemy in enemy_ai.troops:
         if enemy.x <= castle_width/2:
-            to_delete.add(enemy)
+            to_delete_enemies.add(enemy)
             player_castle.health -= enemy.damage
         for troop in troops:
             if enemy.rect.colliderect(troop):
