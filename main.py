@@ -11,8 +11,19 @@ WIDTH = 500
 HEIGHT = 500
 
 # Object class 
+class Player():
+    def __init__(self, money):
+        self.money = money
 
-# Troop class
+    def gain_money(self, income):
+        self.money += income
+
+    def lose_money(self, spendings):
+        self.money -= spendings
+
+    def display_money(self):
+        
+        
 class Troops():
     def __init__(self, size, speed, health, dps, cost, team=0):
         self.team = team
