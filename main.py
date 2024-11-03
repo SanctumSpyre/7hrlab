@@ -101,6 +101,11 @@ class Troop():
             self.x = 1920
         self.y = 980
 
+<<<<<<< HEAD
+=======
+        self.rect = pygame.Rect((self.x, self.y), (self.size))
+
+>>>>>>> 0e364bd2606a0dc99006998bd9972b0f7b525ee1
     def update(self):
         self.x += self.speed
 
@@ -219,6 +224,14 @@ enemy_castle = Castle(None, 1)
 clicked = False
 while running:
     # poll for events
+<<<<<<< HEAD
+=======
+    # for ball in cannon.cannonballs:
+    #     for enemy in enemy_ai.troops:
+    #         if ball.colliderect(enemy.rect):
+    #             enemy_ai.troops.remove(enemy)
+
+>>>>>>> 0e364bd2606a0dc99006998bd9972b0f7b525ee1
     # pygame.QUIT event means the user clicked X to close your window
     keys = pygame.key.get_pressed()
     if keys[pygame.K_q]:
@@ -258,6 +271,10 @@ while running:
     tick_count += 1/60.0
     if tick_count >= 1:
         player0.gain_money(1)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0e364bd2606a0dc99006998bd9972b0f7b525ee1
     player0.display_money()
     soldier_button.draw()
     cannon_upgrade_button.draw()
