@@ -63,6 +63,8 @@ class Castle:
         self.rect = pygame.Rect((self.x, self.y), (castle_width, castle_height))
 
     def draw(self):
+        if self.cannon:
+            self.cannon.draw()
         pygame.draw.rect(screen, (0, 0, 0), self.rect)
 
 # Cannon class
@@ -72,7 +74,7 @@ class Cannon:
         self.damage = 2 * level
 
     def draw(self):
-        pygame.draw.drect(screen, (0, 0, 0), ((), ())
+        pygame.draw.rect(screen, (0, 0, 0), ((0, 1050 - castle_height), (50, 30)))
 
 
 
@@ -95,8 +97,9 @@ class Sprite(pygame.sprite.Sprite):
 
 # game loop
 player0 = Player(0)
-player_castle = Castle(0, 0)
-enemy_castle = Castle(1, 1)
+cannon = Cannon()
+player_castle = Castle(cannon, 0)
+enemy_castle = Castle(None, 1)
 while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
