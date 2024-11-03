@@ -220,6 +220,7 @@ class Enemy:
                 self.soldier_reset -= 30
 
         for troop in self.troops:
+            troop.update()
             troop.draw()
 
 
