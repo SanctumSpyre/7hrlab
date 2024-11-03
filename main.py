@@ -264,6 +264,7 @@ while running:
         for troop in troops:
             if enemy.rect.colliderect(troop):
                 to_delete_troops.add(troop)
+                to_delete_enemies.add(enemy)
 
     troops = troops.difference(to_delete_troops)
     enemy_ai.troops = enemy_ai.troops.difference(to_delete_enemies)
