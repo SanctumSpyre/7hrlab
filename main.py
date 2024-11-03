@@ -100,10 +100,11 @@ class Troop():
             self.x = WIDTH - 92
         self.y = 980
 
-        self.rect = pygame.Rect((self.x, self.y), (self.size))
+        self.rect = pygame.Rect((self.x, self.y), self.size)
 
     def update(self):
         self.x += self.speed
+        self.rect = pygame.Rect((self.x, self.y), self.size)
 
     def kill(self):
         pass
@@ -192,6 +193,7 @@ class Cannonball:
         self.vector = vector
         self.damage = damage
         self.radius = 10
+        self.rect = pygame.Rect(0, 0, 2 * self.radius, 2 * self.radius)
 
     def draw(self):
         self.vector[1] += 0.3
@@ -240,10 +242,10 @@ enemy_ai = Enemy()
 clicked = False
 while running:
     # poll for events
-    # for ball in cannon.cannonballs:
-    #     for enemy in enemy_ai.troops:
-    #         if ball.colliderect(enemy.rect):
-    #             enemy_ai.troops.remove(enemy)
+    for ball in cannon.cannonballs:
+        for enemy in enemy_ai.troops:
+            if ball.rect.colliderect(enemy.rect):
+                enemy_ai.troops.remove(enemy)
 
     # pygame.QUIT event means the user clicked X to close your window
     keys = pygame.key.get_pressed()
