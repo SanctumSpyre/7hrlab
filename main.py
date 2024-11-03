@@ -85,12 +85,10 @@ class Troop():
     def draw(self):
         pygame.draw.rect(screen, (0, 0, 0), ((self.x,self.y), self.size))
 
-# Castle class
-# 1920 x 1080
+
 castle_health = 1000
 castle_width = 200
 castle_height = 600
-
 class Castle:
     def __init__(self, cannon, team):
         self.health = castle_health
@@ -170,6 +168,10 @@ class Cannonball:
         self.center[1] += self.vector[1]
         pygame.draw.circle(screen, (0, 0, 0), self.center, self.radius)
 
+
+# Enemy class
+class Enemy:
+    self.__in
 
 
 
