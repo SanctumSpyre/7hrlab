@@ -113,28 +113,45 @@ class Castle:
 class Cannon:
     def __init__(self, level=1):
         self.speed = 10 * level
-        self.reload = 10 // level
+        self.reload = 120 // (level*0.5 + 0.5)
         self.damage = 2 * level
         self.x0, self.y0 = (50, 1035 - castle_height)
         self.cannonballs = set()
-        self.ready = True
+        self.ready = False
+        self.cycles = 0
+        self.x, self.y = 0, 1050 - castle_height
+        self.rect = pygame.Rect((self.x, self.y), (50, 30))
+        self.cdbar_max_x = 50
+        self.cdbar_y = 5
 
     def draw(self):
+        if not self.ready:
+            p = self.cycles / self.reload 
+            pygame.draw.rect(screen, (0, 0, 0), ((0, 1050 - castle_height - 10), (50*p, 5)))
+            self.cycles += 1
+        else:
+            pygame.draw.rect(screen, (0, 0, 0), ((0, 1050 - castle_height - 10), (50, 5)))
+
+        if self.cycles >= self.reload:
+            self.ready = True
+            self.cycles = 0
+
         to_remove = set()
         for ball in self.cannonballs:
             if ball.center[0] < 0 or ball.center[0] > WIDTH or ball.center[1] < 0 or ball.center[1] > HEIGHT:
                 to_remove.add(ball)
             ball.draw()
-        self.cannonballs.difference(to_remove)
+        self.cannonballs = self.cannonballs.difference(to_remove)
         pygame.draw.rect(screen, (0, 0, 0), ((0, 1050 - castle_height), (50, 30)))
 
     def fire(self, dst):
-        x, y = dst[0], dst[1]
-        vector = np.array([x - self.x0, y - self.y0])
-        magnitude = np.linalg.norm(vector)
-        unit_vector = vector / magnitude
-        vector = unit_vector * self.speed
-        self.cannonballs.add(Cannonball([self.x0, self.y0], vector, self.damage))
+        if self.ready:
+            x, y = dst[0], dst[1]
+            vector = np.array([x - self.x0, y - self.y0])
+            magnitude = np.linalg.norm(vector)
+            unit_vector = vector / magnitude
+            vector = unit_vector * self.speed
+            self.cannonballs.add(Cannonball([self.x0, self.y0], vector, self.damage))
         self.ready = False
 
 
