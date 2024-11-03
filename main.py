@@ -264,6 +264,8 @@ while running:
         if enemy.x <= castle_width/2:
             to_delete_enemies.add(enemy)
             player_castle.health -= enemy.damage*20
+            pygame.mixer.music.load('explode.mp3')
+            pygame.mixer.music.play()
             if player_castle.health <= 0:
                 running = False
         for troop in troops:
