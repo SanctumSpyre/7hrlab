@@ -20,7 +20,23 @@ class Button():
         self.position = position
         self.cd = cd
         self.cost = cost
+
     def draw(self):
+        # click handling
+        mouse_pos = pygame.mouse.get_pos()
+
+      if self.rect.collidepoint(mouse_pos):
+         if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
+            self.clicked = True
+      if pygame.mouse.get_pressed()[0] == 0 and self.clicked == True:
+         pygame.event.post(button_pressed)
+         self.clicked = False
+         if self.playing:
+            self.playing = 0
+         else:
+            self.playing = 1
+
+            
         pygame.draw.rect(screen, (0, 0, 0), (self.position, (50, 50)))
     
 class Player():
