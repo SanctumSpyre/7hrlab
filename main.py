@@ -85,7 +85,7 @@ class Player():
         screen.blit(text, textRect)
         
 class Troop():
-    def __init__(self, size, speed, health, dps, cost, team=0):
+    def __init__(self, size, speed, health, dps, team=0):
         self.team = team
         if self.team != 0:
             self.speed = -speed
@@ -94,7 +94,6 @@ class Troop():
         self.health = health
         self.dps = dps
         self.size = size
-        self.cost = cost
         if team == 0:
             self.x = 250
         else:
@@ -253,7 +252,7 @@ while running:
             running = False
         elif event.type == SOLDIER_CLICKED:
             if player0.money >= 10:
-                troops.append(Troop((16,16),1/2,1,1,10,0))
+                troops.append(Troop((16,16),1/2,1,1,0))
                 player0.lose_money(10)
         elif event.type == CANNON_UPGRADE_CLICKED:
             if player0.money >= 30:
