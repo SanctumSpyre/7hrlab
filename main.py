@@ -10,6 +10,8 @@ COLOR = (255, 100, 98)
 SURFACE_COLOR = (167, 255, 100) 
 WIDTH = 500
 HEIGHT = 500
+MOUSE_CLICKED = pygame.USEREVENT + 1
+mouse_clicked = pygame.event.Event(MOUSE_CLICKED)
 
 # Object class 
 class Player():
@@ -72,11 +74,30 @@ class Cannon:
     def __init__(self, level=1):
         self.reload = 10 // level
         self.damage = 2 * level
+        self.x0, self.y0 = (50, 1035 - castle_height)
+        self.cannonballs = []
 
     def draw(self):
+        for ball in self.cannonballs:
+            ball.draw()
         pygame.draw.rect(screen, (0, 0, 0), ((0, 1050 - castle_height), (50, 30)))
 
+    def fire(self, dst):
+        x, y = dst[0], dst[1]
+        vector = [(x - self.x0) // 5, (y - self.y0) // 5]
+        self.cannonballs.append(Cannonball((self.x0, self.y0), vector, self.damage))
 
+
+# Cannonball class
+class Cannonball:
+    def __init__(self, center, vector, damage):
+        self.center = center
+        self.vector = vector
+        self.damage = damage
+        self.radius = 10
+
+    def draw(self):
+        pygame.draw.circle(screen, self.center, self.radius)
 
 
 
@@ -100,6 +121,7 @@ player0 = Player(0)
 cannon = Cannon()
 player_castle = Castle(cannon, 0)
 enemy_castle = Castle(None, 1)
+clicked = False
 while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
@@ -109,7 +131,15 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.MOUSE_CLICKED:
+            player_castle.fire(pygame.mouse.get_pos())
 
+    # looking for mouse click
+    if pygame.mouse.get_pressed()[0] == 1 and clicked == False:
+        clicked = True
+    if pygame.mouse.get_pressed()[0] == 0 and clicked == True:
+        pygame.event.post(mouse_clicked)
+        clicked = False
 
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("grey")
