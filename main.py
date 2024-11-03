@@ -4,7 +4,7 @@ screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 clock = pygame.time.Clock()
 running = True
 pygame.font.init()
-my_font = pygame.font.SysFont('Comic Sans MS', 30)
+my_font = pygame.font.SysFont('Comic Sans MS', 40)
 
 # GLOBAL VARIABLES 
 COLOR = (255, 100, 98) 
@@ -15,6 +15,14 @@ MOUSE_CLICKED = pygame.USEREVENT + 1
 mouse_clicked = pygame.event.Event(MOUSE_CLICKED)
 
 # Object class 
+class Button():
+    def __init__(self, position, cd, cost):
+        self.position = position
+        self.cd = cd
+        self.cost = cost
+    def draw(self):
+        pygame.draw.rect(screen, (0, 0, 0), (self.position, (50, 50)))
+    
 class Player():
     def __init__(self, money):
         self.money = money
@@ -28,17 +36,17 @@ class Player():
     def display_money(self):
         text = my_font.render(f"{self.money}", True,'yellow', 'black')
         textRect = text.get_rect()
-        X = 1800
-        Y = 100
+        X = 1900
+        Y = 50
         # set the center of the rectangular object.
-        textRect.center = (X // 2, Y // 2)
+        textRect.center = (X, Y // 2)
         screen.blit(text, textRect)
         
 class Troops():
     def __init__(self, size, speed, health, dps, cost, team=0):
         self.team = team
         if self.team != 0:
-            self.speed = -speed
+            self.speed = -speed, tipe,
         else:
             self.speed = speed
         self.health = healthtext = font.render('GeeksForGeeks', True, green, blue)
@@ -51,6 +59,7 @@ class Troops():
 
     def draw(self):
         pass
+        #pygame.draw.rect(screen, (0, 0, 0), ((0, 1050 - castle_height), (50, 30)))
 
 # Castle class
 # 1920 x 1080
@@ -115,21 +124,9 @@ class Cannonball:
 
 
 
-class Sprite(pygame.sprite.Sprite): 
-    def __init__(self, color, height, width): 
-        super().__init__() 
-  
-        self.image = pygame.Surface([width, height]) 
-        self.image.fill(SURFACE_COLOR) 
-        self.image.set_colorkey(COLOR) 
-  
-        pygame.draw.rect(self.image, 
-                         color, 
-                         pygame.Rect(0, 0, width, height)) 
-  
-        self.rect = self.image.get_rect()  
 
 # game loop
+soldier_button = Button((0,0),1,1)
 tick_count = 0
 player0 = Player(0)
 cannon = Cannon()
@@ -163,7 +160,7 @@ while running:
     if tick_count >= 1:
         player0.gain_money(1)
     player0.display_money()
-
+    soldier_button.draw()
     player_castle.draw()
     enemy_castle.draw()
 
