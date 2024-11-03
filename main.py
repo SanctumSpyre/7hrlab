@@ -196,6 +196,7 @@ class Enemy:
                 self.soldier_reset -= 30
 
         for troop in troops:
+            troop.update()
             troop.draw()
 
 
@@ -219,7 +220,7 @@ while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_q]:self.level = level
+    if keys[pygame.K_q]:
         running = False
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
