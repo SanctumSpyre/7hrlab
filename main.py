@@ -139,7 +139,7 @@ class Castle:
         if self.cannon:
             self.cannon.draw()
         if self.team == 0:
-            pygame.draw.rect(screen, (0, 0, 0), ((0, 200), (castle_health, 10)))
+            pygame.draw.rect(screen, (0, 0, 0), ((0, 200), (self.castle_health, 10)))
         pygame.draw.rect(screen, (0, 0, 0), self.rect)
 
 # Cannon class
@@ -234,7 +234,7 @@ class Enemy:
 
 
 # game loop
-troops = set()
+troops = []
 soldier_button = Button((0,0),1,1,'soldier')
 cannon_upgrade_button = Button((150,0),1,1,'cannon_upgrade')
 tick_count = 0
@@ -255,11 +255,10 @@ while running:
             
             enemy_ai.troops = enemy_ai.troops.difference(to_delete)
 
-    to_delete_enemies = set()
-    to_delete_troops = set()
+    to_delete = set()
     for enemy in enemy_ai.troops:
-        if enemy.x <= castle_width:
-            to_delete_enemies.add(enemy)
+        if enemy.x <= castle_width/2:
+            to_delete.add(enemy)
             player_castle.health -= enemy.damage
         for troop in troops:
             if enemy.rect.colliderect(troop):
@@ -268,6 +267,7 @@ while running:
 
     troops = troops.difference(to_delete_troops)
     enemy_ai.troops = enemy_ai.troops.difference(to_delete_enemies)
+    enemy_ai.troops = enemy_ai.troops.difference(to_delete)
 
 
     # pygame.QUIT event means the user clicked X to close your window
@@ -279,7 +279,7 @@ while running:
             running = False
         elif event.type == SOLDIER_CLICKED:
             if player0.money >= 10:
-                troops.add(Troop((16,16),1/2,1,1,0))
+                troops.append(Troop((16,16),1/2,1,1,0))
                 player0.lose_money(10)
         elif event.type == CANNON_UPGRADE_CLICKED:
             if player0.money >= 30:
