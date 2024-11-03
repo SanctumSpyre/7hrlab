@@ -38,7 +38,7 @@ castle_health = 1000
 castle_width = 200
 castle_height = 600
 
-class castle:
+class Castle:
     def __init__(self, cannon, team):
         self.health = castle_health
         self.cannon = cannon
