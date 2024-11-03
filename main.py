@@ -202,7 +202,7 @@ class Cannonball:
 class Enemy:
     def __init__(self):
         self.level = 1
-        self.enemies = []
+        self.troops = []
         self.soldier_reset = 360
         self.cycles = 0
     
