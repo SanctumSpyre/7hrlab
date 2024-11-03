@@ -259,16 +259,10 @@ while running:
         elif event.type == CANNON_UPGRADE_CLICKED:
             if player0.money >= 30:
                 cannon.upgrade()
-                # cannon.speed *= 2
-                # cannon.reload = cannon.reload(.9)
-                # cannon.damage += 2
                 player0.lose_money(30)
-
-
         elif event.type == MOUSE_CLICKED:
             if pygame.mouse.get_pos()[1] >= 100:
                 cannon.fire(pygame.mouse.get_pos())
-
 
     # looking for mouse click
     if pygame.mouse.get_pressed()[0] == 1 and clicked == False:
@@ -284,10 +278,12 @@ while running:
     tick_count += 1/60.0
     if tick_count >= 1:
         player0.gain_money(1)
+        
     player0.display_money()
     soldier_button.draw()
     cannon_upgrade_button.draw()
     player_castle.draw()
+
     enemy_castle.draw()
     enemy_ai.draw()
 
