@@ -101,9 +101,8 @@ class Troop():
             self.x = 1920
         self.y = 980
 
-        self.rect = pygame.Rect((self.x, self.y), (self.size))
+        self.rect = pygame.Rect((self.x, self.y), self.size)
 
->>>>>>> 0e364bd2606a0dc99006998bd9972b0f7b525ee1
     def update(self):
         self.x += self.speed
         self.rect = pygame.Rect((self.x, self.y), self.size)
@@ -207,7 +206,21 @@ class Cannonball:
 # Enemy class
 class Enemy:
     def __init__(self):
-        pass
+        self.level = 1
+        self.troops = set()
+        self.soldier_reset = 360
+        self.cycles = 0
+    
+    def draw(self):
+        self.cycles += 1
+        if self.cycles % self.soldier_reset == 0:
+            self.troops.add(Troop((16,16),1/2,1,1,1))
+        if self.cycles % 1200 == 0:
+            if self.soldier_reset > 30:
+                self.soldier_reset -= 30
+
+        for troop in self.troops:
+            troop.draw()
 
 
 
@@ -221,6 +234,7 @@ player0 = Player(0)
 cannon = Cannon()
 player_castle = Castle(cannon, 0)
 enemy_castle = Castle(None, 1)
+enemy_ai = Enemy()
 clicked = False
 while running:
     # poll for events
@@ -243,9 +257,6 @@ while running:
         elif event.type == CANNON_UPGRADE_CLICKED:
             if player0.money >= 30:
                 cannon.upgrade()
-                # cannon.speed *= 2
-                # cannon.reload = cannon.reload(.9)
-                # cannon.damage += 2
                 player0.lose_money(30)
 
 
@@ -272,8 +283,10 @@ while running:
     player0.display_money()
     soldier_button.draw()
     cannon_upgrade_button.draw()
+
     player_castle.draw()
     enemy_castle.draw()
+
     for troop in troops:
         troop.update()
     for troop in troops:
