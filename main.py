@@ -255,7 +255,8 @@ while running:
             
             enemy_ai.troops = enemy_ai.troops.difference(to_delete)
 
-    to_delete = set()
+    to_delete_enemies = set()
+    to_delete_troops = set()
     for enemy in enemy_ai.troops:
         if enemy.x <= castle_width/2:
             to_delete.add(enemy)
@@ -267,7 +268,6 @@ while running:
 
     troops = troops.difference(to_delete_troops)
     enemy_ai.troops = enemy_ai.troops.difference(to_delete_enemies)
-    enemy_ai.troops = enemy_ai.troops.difference(to_delete)
 
 
     # pygame.QUIT event means the user clicked X to close your window
