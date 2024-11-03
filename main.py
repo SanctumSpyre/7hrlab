@@ -257,7 +257,7 @@ while running:
 
     to_delete = set()
     for enemy in enemy_ai.troops:
-        if enemy.x <= castle_width:
+        if enemy.x <= castle_width/2:
             to_delete.add(enemy)
             player_castle.health -= enemy.damage
     enemy_ai.troops = enemy_ai.troops.difference(to_delete)
