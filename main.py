@@ -195,7 +195,8 @@ while running:
         elif event.type == SOLDIER_CLICKED:
             troops.append(Troop((16,16),1/2,1,1,10,0))
         elif event.type == MOUSE_CLICKED:
-            cannon.fire(pygame.mouse.get_pos())
+            if pygame.mouse.get_pos()[1] >= 100:
+                cannon.fire(pygame.mouse.get_pos())
 
 
     # looking for mouse click
