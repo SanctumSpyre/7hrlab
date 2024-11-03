@@ -314,6 +314,8 @@ while running:
     if tick_count >= 1:
         player0.gain_money(1)
         tick_count = 0
+
+        
     player0.display_money()
     soldier_button.draw()
     cannon_upgrade_button.draw()
