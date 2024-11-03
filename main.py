@@ -85,7 +85,7 @@ class Player():
         screen.blit(text, textRect)
         
 class Troop():
-    def __init__(self, size, speed, health, dps, cost, team=0):
+    def __init__(self, size, speed, health, dps, team=0):
         self.team = team
         if self.team != 0:
             self.speed = -speed
@@ -94,7 +94,6 @@ class Troop():
         self.health = health
         self.dps = dps
         self.size = size
-        self.cost = cost
         if team == 0:
             self.x = 250
         else:
@@ -202,7 +201,25 @@ class Cannonball:
 # Enemy class
 class Enemy:
     def __init__(self):
-        pass
+        self.level = 1
+        self.troops = []
+        self.soldier_reset = 360
+        self.cycles = 0
+    
+    def draw(self):
+        self.cycles += 1
+        if self.cycles % self.soldier_reset == 0:
+            self.troops.append(Troop((16,16),1/2,1,1,1))
+        if self.cycles % 1200 == 0:
+            if self.soldier_reset > 30:
+                self.soldier_reset -= 30
+
+        for troop in troops:
+            troop.update()
+            troop.draw()
+
+
+
 
 
 
@@ -216,6 +233,7 @@ player0 = Player(0)
 cannon = Cannon()
 player_castle = Castle(cannon, 0)
 enemy_castle = Castle(None, 1)
+enemy_ai = Enemy()
 clicked = False
 while running:
     # poll for events
@@ -228,7 +246,7 @@ while running:
             running = False
         elif event.type == SOLDIER_CLICKED:
             if player0.money >= 10:
-                troops.append(Troop((16,16),1/2,1,1,10,0))
+                troops.append(Troop((16,16),1/2,1,1,0))
                 player0.lose_money(10)
         elif event.type == CANNON_UPGRADE_CLICKED:
             if player0.money >= 30:
@@ -263,6 +281,8 @@ while running:
     cannon_upgrade_button.draw()
     player_castle.draw()
     enemy_castle.draw()
+    enemy_ai.draw()
+
     for troop in troops:
         troop.update()
     for troop in troops:
