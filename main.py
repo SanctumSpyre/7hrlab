@@ -4,7 +4,7 @@ screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 clock = pygame.time.Clock()
 running = True
 pygame.font.init()
-my_font = pygame.font.SysFont('Comic Sans MS', 30)
+my_font = pygame.font.SysFont('Comic Sans MS', 40)
 
 # GLOBAL VARIABLES 
 COLOR = (255, 100, 98) 
@@ -28,10 +28,10 @@ class Player():
     def display_money(self):
         text = my_font.render(f"{self.money}", True,'yellow', 'black')
         textRect = text.get_rect()
-        X = 1800
-        Y = 100
+        X = 1900
+        Y = 50
         # set the center of the rectangular object.
-        textRect.center = (X // 2, Y // 2)
+        textRect.center = (X, Y // 2)
         screen.blit(text, textRect)
         
 class Troops():
