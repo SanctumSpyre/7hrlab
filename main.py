@@ -127,7 +127,7 @@ class Cannon:
         self.x, self.y = 0, 1050 - castle_height
         self.rect = pygame.Rect((self.x, self.y), (50, 30))
         self.cdbar_max_x = 50
-        self.cdbar_y = 5self.level = level
+        self.cdbar_y = self.level = level
     def draw(self):
         if not self.ready:
             p = self.cycles / self.reload 
