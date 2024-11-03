@@ -121,7 +121,7 @@ class Cannon:
 
     def fire(self, dst):
         x, y = dst[0], dst[1]
-        vector = np.array[x - self.x0, y - self.y0]
+        vector = np.array([x - self.x0, y - self.y0])
         magnitude = np.linalg.norm(vector)
         unit_vector = vector / magnitude
         vector = unit_vector * self.speed
