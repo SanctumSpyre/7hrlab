@@ -234,7 +234,7 @@ class Enemy:
 
 
 # game loop
-troops = []
+troops = set()
 soldier_button = Button((0,0),1,1,'soldier')
 cannon_upgrade_button = Button((150,0),1,1,'cannon_upgrade')
 tick_count = 0
