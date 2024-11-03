@@ -7,6 +7,9 @@ running = True
 while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_w]:
+        running = False
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
