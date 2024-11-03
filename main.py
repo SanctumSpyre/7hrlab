@@ -64,6 +64,14 @@ class Castle:
     def draw(self):
         pygame.draw.rect(screen, (0, 0, 0), self.rect)
 
+# Cannon class
+class Cannon:
+    def __init__(self, level=1):
+        self.reload = 10 // level
+        self.damage = 2 * level
+
+    def draw(self):
+        pygame.draw.drect(screen, (0, 0, 0), ((), ())
 
 
 
