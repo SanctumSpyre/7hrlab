@@ -5,7 +5,7 @@ screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 clock = pygame.time.Clock()
 running = True
 pygame.font.init()
-my_font = pygame.font.SysFont('Comic Sans MS', 40)
+my_font = pygame.font.SysFont('Comic Sans MS', 30)
 
 # GLOBAL VARIABLES 
 COLOR = (255, 100, 98) 
@@ -25,7 +25,7 @@ class Button():
         self.cd = cd
         self.cost = cost
         self.clicked = False
-        self.rect = pygame.Rect(self.position,(50,50))
+        self.rect = pygame.Rect(self.position,(100,100))
         self.ID = ID
 
     def draw(self):
@@ -45,7 +45,26 @@ class Button():
 
             
         pygame.draw.rect(screen, (255, 255, 255), self.rect)
-    
+        if self.ID == 'soldier':
+            text = my_font.render('Soldier: 10', True,'yellow', 'black')
+            textRect = text.get_rect()
+            X = 50
+            Y = 50
+            textRect.center = (X, Y // 2)
+            screen.blit(text, textRect)
+        elif self.ID == 'cannon_upgrade':
+            text = my_font.render('Cannon', True,'yellow', 'black')
+            text2 = my_font.render('Upgrade: 30', True,'yellow', 'black')
+            textRect = text.get_rect()
+            textRect2 = text2.get_rect()
+            X = 200
+            Y = 50
+            Y2 = 100
+            textRect.center = (X, Y // 2)
+            textRect2.center = (X, Y2 // 2)
+            screen.blit(text, textRect)
+            screen.blit(text2, textRect2)
+
 class Player():
     def __init__(self, money):
         self.money = money
@@ -191,7 +210,7 @@ class Enemy:
 # game loop
 troops = []
 soldier_button = Button((0,0),1,1,'soldier')
-cannon_upgrade_button = Button((75,0),1,1,'cannon_upgrade')
+cannon_upgrade_button = Button((150,0),1,1,'cannon_upgrade')
 tick_count = 0
 player0 = Player(0)
 cannon = Cannon()
@@ -202,7 +221,7 @@ while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_q]:self.level = level
+    if keys[pygame.K_q]:
         running = False
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -242,7 +261,6 @@ while running:
     player0.display_money()
     soldier_button.draw()
     cannon_upgrade_button.draw()
-
     player_castle.draw()
     enemy_castle.draw()
     for troop in troops:
