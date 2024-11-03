@@ -48,24 +48,34 @@ class Button():
             
         pygame.draw.rect(screen, (255, 255, 255), self.rect)
         if self.ID == 'soldier':
-            text = my_font.render('Soldier: 10', True,'yellow', 'black')
-            textRect = text.get_rect()
-            X = 50
-            Y = 50
-            textRect.center = (X, Y // 2)
-            screen.blit(text, textRect)
-        elif self.ID == 'cannon_upgrade':
-            text = my_font.render('Cannon', True,'yellow', 'black')
-            text2 = my_font.render('Upgrade: 30', True,'yellow', 'black')
+            text = my_font.render('Soldier', True,'yellow', 'black')
+            text2 = my_font.render('10', True,'yellow', 'black')
             textRect = text.get_rect()
             textRect2 = text2.get_rect()
-            X = 250
+            X = 50
             Y = 50
             Y2 = 100
             textRect.center = (X, Y // 2)
             textRect2.center = (X, Y2 // 2)
             screen.blit(text, textRect)
             screen.blit(text2, textRect2)
+        elif self.ID == 'cannon_upgrade':
+            text = my_font.render('Cannon', True,'yellow', 'black')
+            text2 = my_font.render('Upgrade', True,'yellow', 'black')
+            text3 = my_font.render('30', True,'yellow', 'black')
+            textRect = text.get_rect()
+            textRect2 = text2.get_rect()
+            textRect3 = text3.get_rect()
+            X = 200
+            Y = 50
+            Y2 = 100
+            Y3 = 150
+            textRect.center = (X, Y // 2)
+            textRect2.center = (X, Y2 // 2)
+            textRect3.center = (X, Y3 // 2)
+            screen.blit(text, textRect)
+            screen.blit(text2, textRect2)
+            screen.blit(text3, textRect3)
 
 class Player():
     def __init__(self, money):
